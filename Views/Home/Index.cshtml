@@ -1,0 +1,33 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Smartway - Upload Files</title>
+
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+    <link href=@Url.Content("~/assets/css/style.css") rel="stylesheet" />
+</head>
+
+<body>
+    <form id="upload" asp-action="UploadFiles" asp-controller="Home" method="post" enctype="multipart/form-data">
+            <div id="drop">
+                Drop Here
+
+                <a>Browse</a>
+                <input type="file" name="FormFile" multiple/>
+            </div>
+
+            <ul>
+            </ul>
+
+            <input type="submit" value="Upload Files"/>
+        </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src=@Url.Content("~/assets/js/jquery.knob.js")></script>
+    <script src=@Url.Content("~/assets/js/jquery.ui.widget.js")></script>    
+    <script src=@Url.Content("~/assets/js/jquery.fileupload.js")></script>
+    <script src=@Url.Content("~/assets/js/script.js")></script>
+</body>
+</html>

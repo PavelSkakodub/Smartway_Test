@@ -1,0 +1,48 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Smartway_Test.Controllers
+
+@{
+    using AppDbContext context = new AppDbContext();
+    var files = context.Files.Select(x => new { x.Id, x.Name,x.Format }).ToList();
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Smartway - Download Files</title>
+</head>
+
+<body>
+    <p>Скачивание выбранных файлов</p>
+    <form id="files" asp-action="DownloadFiles" asp-controller="Home" method="post">
+        @foreach (var file in files)
+        {
+            <div>
+                <input type="checkbox" name="filesId" value="@file.Id">@file.Name.@file.Format<br>
+            </div>
+        }
+        <input type="submit" value="Download" />
+        <button id="clear" value="Clear">Clear checkbox</button>
+    </form>
+
+    <p>Генерация ссылок для одноразового скачивания</p>
+    <form asp-action="GenerateLink" asp-controller="Home" method="post">
+        @foreach (var file in files)
+        {
+            <input type="radio" name="filesId" value="@file.Id">@(file.Name+'.'+file.Format)<br>
+        }
+        <input type="submit" value="Generate link" />
+    </form>
+
+
+    <script>
+        document.getElementById("clear").addEventListener("click", function (e) {
+            var formBlock = document.getElementById("files");
+            var inputArr = formBlock.querySelectorAll("input[type=checkbox]");
+            inputArr.forEach(function (el) {
+                el.checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
